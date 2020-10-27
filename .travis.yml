@@ -22,3 +22,15 @@ after_success:
     - docker push plpetkov/fib-app-nginx
     - docker push plpetkov/fib-app-worker
     - docker push plpetkov/fib-app-server
+deploy:
+    provider: elasticbeanstalk
+    region: eu-central-1
+    app: fib-app
+    env: FibApp-env
+    bucket_name: elasticbeanstalk-eu-central-1-072009492510
+    bucket_path: fib-app
+    on:
+        branch: master
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: "$AWS_SECRET_KEY"
+    
