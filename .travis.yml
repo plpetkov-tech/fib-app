@@ -12,7 +12,14 @@ script:
     - docker run -e CI=true plpetkov/react-test npm test
     
 after_success: 
-    - docker build -t plpetkov/fit-app-client ./client
-    - docker build -t plpetkov/fit-app-nginx ./nginx
-    - docker build -t plpetkov/fit-app-server ./server
-    - docker build -t plpetkov/fit-app-worker ./worker
+    - docker build -t plpetkov/fib-app-client ./client
+    - docker build -t plpetkov/fib-app-nginx ./nginx
+    - docker build -t plpetkov/fib-app-server ./server
+    - docker build -t plpetkov/fib-app-worker ./worker
+    # Log in to the docker CLI
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+    # Take those images and push them to docker hub
+    - docker push plpetkov/fib-app-client
+    - docker push plpetkov/fib-app-nginx
+    - docker push plpetkov/fib-app-worker
+    - docker push plpetkov/fib-app-server
